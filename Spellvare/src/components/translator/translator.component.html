@@ -1,4 +1,6 @@
 <h2>Traductor Español-Braille</h2>
-<input class="texto" type="text" id="texto" name="texto" placeholder=" INSERTAR PALABRA">
-<button type="submit">Traducir</button>
-<app-translation/>
+<form (ngSubmit)="convertirText()">
+  <input [(ngModel)]="text" name="texto" placeholder="Ingresa texto" required />
+  <button type="submit" >Traducir</button>
+</form>
+<app-translation>

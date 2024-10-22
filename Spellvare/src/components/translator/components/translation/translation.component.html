@@ -1,1 +1,8 @@
-<p>translation works!</p>
+@if (translation$ |async) {
+  <div>
+    <span [innerHTML]="translation$ |async"></span>
+    <p>{{ text$ | async }}</p>
+  </div>
+} @else {
+  <p>Introduce texto para traducir.</p>
+}
