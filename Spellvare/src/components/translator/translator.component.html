@@ -1,6 +1,16 @@
-<h2>Traductor Español-Braille</h2>
-<form (ngSubmit)="convertirText()">
-  <input [(ngModel)]="text" name="texto" placeholder="Ingresa texto" required />
-  <button type="submit" >Traducir</button>
-</form>
-<app-translation>
+<div class="body">
+  <div class="interior">
+    <div class="translator">
+      <h2 >Traductor Español-Braille</h2>
+      <form (ngSubmit)="convertirText()">
+        <input [(ngModel)]="text" name="texto" placeholder="Ingresa texto" required />
+        <br>
+        <button type="submit">Traducir</button>
+      </form>
+      <app-translation class="translation" />
+    </div>
+    <div class="image">
+      <img src="assets/Logo.png" alt="Logo">
+    </div>
+  </div>
+</div>
