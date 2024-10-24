@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TranslationComponent } from "./components/translation/translation.component";
 import { FormsModule } from '@angular/forms';
 import { TranslationService } from '../translation.service';
+import { BrailleTranslationComponent } from "./components/braille-translation/braille-translation.component";
 
 @Component({
   selector: 'app-translator',
   standalone: true,
-  imports: [TranslationComponent, FormsModule],
+  imports: [TranslationComponent, FormsModule, BrailleTranslationComponent],
   templateUrl: './translator.component.html',
   styleUrl: './translator.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -15,6 +16,11 @@ export class TranslatorComponent {
 
   private translationService = inject(TranslationService)
 
+  showTranslator: boolean = true;  // Controla qué vista mostrar
+
+  toggleView(): void {
+    this.showTranslator = !this.showTranslator;
+  }
   text: string = '';
   translation: string = '';
   brailleMap: { [key: string]: string } = {

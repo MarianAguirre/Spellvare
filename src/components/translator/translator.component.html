@@ -1,14 +1,27 @@
+
 <div class="body">
+
   <div class="interior">
-    <div class="translator">
-      <h2 >Traductor Español-Braille</h2>
+
+    <!-- Botón para alternar entre las vistas -->
+
+    <!-- Traductor Español-Braille -->
+    <button (click)="toggleView()">Cambiar traductor</button>
+    <div class="translator" [hidden]="!showTranslator">
+      <h2>Traductor Español-Braille</h2>
       <form (ngSubmit)="convertirText()">
         <input [(ngModel)]="text" name="texto" placeholder="Ingresa texto" required />
         <br>
         <button type="submit">Traducir</button>
       </form>
-      <app-translation class="translation" />
+      <app-translation class="translation"></app-translation>
     </div>
+
+    <!-- Braille-Translation -->
+    <div class="braille-translation" [hidden]="showTranslator">
+      <app-braille-translation></app-braille-translation>
+    </div>
+
     <div class="image">
       <img src="assets/Logo.png" alt="Logo">
     </div>
