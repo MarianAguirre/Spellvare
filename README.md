@@ -1,5 +1,7 @@
 # Spellvare
 
+Link de la pagina: [Spellvare](https://marianaguirre.github.io/Spellvare/)
+
 ## Tabla de Contenidos
 - [Descripción](#descripción)
 - [Objetivo](#objetivo)
@@ -7,7 +9,7 @@
 - [Instalación local](#instalación-local)
   - [Requisitos previos](#requisitos-previos)
   - [Instalación](#instalación)
-- [Uso](#uso)
+  - [Uso](#uso)
 
 ## Descripción
 
