@@ -1,27 +1,55 @@
 # Spellvare
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.8.
+## Tabla de Contenidos
+- [Descripción](#descripción)
+- [Objetivo](#objetivo)
+- [Tecnologías utilizadas](#tecnologías-utilizadas)
+- [Instalación local](#instalación-local)
+  - [Requisitos previos](#requisitos-previos)
+  - [Instalación](#instalación)
+- [Uso](#uso)
 
-## Development server
+## Descripción
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Este proyecto tiene como objetivo desarrollar una aplicación web educativa y un dispositivo de traducción Braille que permita a las personas acceder a materiales educativos de manera más accesible y efectiva. El proyecto busca abordar la falta de recursos educativos en Braille y promover la inclusión social.
 
-## Code scaffolding
+## Objetivo
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Desarrollar una aplicación web educativa y un dispositivo de traducción Braille que permitan a las personas acceder a materiales educativos de manera más accesible, efectiva y económica.
 
-## Build
+## Tecnologías utilizadas
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Angular
+- TypeScript
+- Node.js
+- HTML/CSS
+---
+# Instalación local
 
-## Running unit tests
+## Requisitos previos
+Antes de comenzar, asegúrate de tener instalados los siguientes programas:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- [Node.js](https://nodejs.org/) (incluye npm)
+- [Bun](https://bun.sh/) (opcional) 
+- Angular CLI (instalar globalmente usando el comando `npm install -g @angular/cli`) (el proyecto uso Angular 18)
 
-## Running end-to-end tests
+## Instalación
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Sigue estos pasos para configurar el proyecto en tu máquina local:
 
-## Further help
+1. Clona el repositorio:
+   ```bash
+   https://github.com/MarianAguirre/Spellvare.git
+2. Navegar al directorio del proyecto:
+   ```bash
+   cd spellvare
+3. Instala las dependencias:
+    ```bash
+    npm install
+4. Ejecutar la aplicación:
+   ```bash
+    ng serve -o
+La aplicación estará disponible en `http://localhost:4200/`.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Uso
+Una vez que la aplicación esté en funcionamiento, puedes navegar a través de las diferentes secciones para explorar los materiales educativos disponibles. 
