@@ -1,6 +1,72 @@
 # Spellvare
 
-Link de la pagina: [Spellvare](https://marianaguirre.github.io/Spellvare/)
+Link: [Spellvare](https://marianaguirre.github.io/Spellvare/)
+
+## Table of Contents / Tabla de Contenidos
+- [English](#english)
+- [Español](#español)
+
+# English
+
+## Table of Contents
+- [Description](#description)
+- [Objective](#objective)
+- [Technologies Used](#technologies-used)
+- [Local Installation](#local-installation)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Usage](#usage)
+
+## Description
+
+This project aims to develop an educational web application and a Braille translation device to provide people with more accessible and effective access to educational materials. The project seeks to address the lack of educational resources in Braille and promote social inclusion.
+
+## Objective
+
+To develop an educational web application and a Braille translation device that make educational materials more accessible, effective, and affordable.
+
+## Technologies Used
+
+- Angular
+- TypeScript
+- Node.js
+- HTML/CSS
+
+---
+
+# Local Installation
+
+## Prerequisites
+Before starting, ensure you have the following programs installed:
+
+- [Node.js](https://nodejs.org/) (includes npm)
+- [Bun](https://bun.sh/) (optional)
+- Angular CLI (install globally using the command `npm install -g @angular/cli`) (the project uses Angular 18)
+
+## Installation
+
+Follow these steps to set up the project on your local machine:
+1. Clone the repository:
+   ```bash
+   https://github.com/MarianAguirre/Spellvare.git
+2. Navigate to the project directory:
+    ```bash
+    cd spellvare
+3. Install the dependencies:
+   ```bash
+    npm install
+
+5. Run the application:
+   ```bash
+    ng serve -o
+The application will be available at`http://localhost:4200/`.
+
+## Usage
+Once the application is running, you can navigate through the different sections to explore the available educational materials.
+
+---
+
+# Español
 
 ## Tabla de Contenidos
 - [Descripción](#descripción)
