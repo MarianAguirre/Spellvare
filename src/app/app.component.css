@@ -1,0 +1,17 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+}
+
+.header {
+  display: flex;
+  text-align: end;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+img#logo {
+  width: 5%;
+}

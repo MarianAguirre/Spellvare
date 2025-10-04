@@ -1,7 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
-body{
-  background-color: #EDF7FC;
-  font-family: "Courier New", monospace;
+body {
+  background-color: rgb(240, 247, 251);
+  font-family: "Arial Rounded MT Bold", "Arial Rounded MT", Arial, sans-serif;
   margin: 0;
+  color: rgb(15, 23, 42);
+}
+
+input,
+textarea {
+  font-family: "Arial Rounded MT Bold", "Arial Rounded MT", Arial, sans-serif;
+  color: rgb(15, 23, 42);
+  font-weight: bold;
 }
