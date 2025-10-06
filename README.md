@@ -1,6 +1,7 @@
 # Spellvare
 
-Link: [Spellvare](https://marianaguirre.github.io/Spellvare/)
+Link: [Spellvare Antiguo](https://marianaguirre.github.io/Spellvare/)
+Link: [Spellvare Nuevo](https://spellvare.netlify.app/)
 
 ## Table of Contents / Tabla de Contenidos
 - [English](#english)
