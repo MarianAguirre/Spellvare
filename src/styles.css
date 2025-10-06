@@ -13,3 +13,24 @@ textarea {
   color: rgb(15, 23, 42);
   font-weight: bold;
 }
+
+@media ((width < 900px)and (width > 500px)) {
+  h1{
+    font-size: 35px;
+  }
+}
+
+@media (width < 500px) {
+  h1{
+    font-size: 20px;
+  }
+  input, textarea, button{
+    font-size: 12px;
+  }
+}
+
+@media (height < 750px) {
+  .body{
+    height: 100vw;
+  }
+}

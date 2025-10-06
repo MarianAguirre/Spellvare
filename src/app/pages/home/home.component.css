@@ -39,7 +39,7 @@ html, body {
 .section:focus-within,
 .section:target {
   opacity: 1;
-  transform: scale(1);
+  /* transform: scale(1); */
 }
 
 
@@ -47,3 +47,4 @@ html, body {
 .section:nth-child(2) { background: #60a5fa; }
 .section:nth-child(3) { background: #34d399; }
 .section:nth-child(4) { background: #facc15; } */
+
