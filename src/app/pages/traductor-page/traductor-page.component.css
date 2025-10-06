@@ -125,10 +125,20 @@ button:active {
   box-shadow: 0px 2px 6px rgba(25, 100, 232, 0.2);
 }
 
+button:disabled {
+  background: gray;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 a {
   padding: 13px 25px;
   color: white;
   text-decoration: none;
+}
+
+form{
+  height: 100%;
 }
 
 @media ((width < 900px)and (width > 500px)) {

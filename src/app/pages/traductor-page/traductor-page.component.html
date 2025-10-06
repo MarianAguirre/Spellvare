@@ -2,15 +2,19 @@
   <div class="body">
     <div class="container">
       <div class="bodyContainer">
-        <h1>Traductor</h1>
-        <div class="zonaTraduccion">
-          <input type="text" placeholder="Escribe tu texto aqui">
-          <textarea name="Traduccion" id="traduccion" placeholder="Tu traduccion estara aqui..." disabled></textarea>
-        </div>
-        <div class="botonesTraduccion">
-          <button><a routerLink="/braille" routerLinkActive="active">Braille</a></button>
-          <button style="padding: 12px 30px;">Traducir</button>
-        </div>
+        <form (ngSubmit)="convertirText()">
+          <h1>Traductor</h1>
+          <div class="zonaTraduccion">
+            <input name="text" [(ngModel)]="text" type="text" placeholder="Escribe tu texto aqui" />
+            <textarea name="Traduccion" id="traduccion" placeholder="Tu traduccion estara aqui..." disabled>{{this.translation }}</textarea>
+          </div>
+          <div class="botonesTraduccion">
+            <button>
+              <a routerLink="/braille" routerLinkActive="active">Braille</a>
+            </button>
+            <button type="submit" style="padding: 12px 30px" [disabled]="!text?.trim()">Traducir</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
