@@ -1,1 +1,21 @@
-<p>activities-page works!</p>
+<div class="main">
+  <div class="header">
+    <h1>Activities</h1>
+  </div>
+  <div class="body">
+    @for (actividad of actividades; track $index) {
+      <div class="container">
+      <div class="bodyContainer">
+          <div class="zonaTraduccion">
+            <img src={{actividad.imagen}} alt="imagen" width="40%" height="40%">
+
+          </div>
+          <div class="botonesTraduccion">
+            <p>{{actividad.nombre}}</p>
+            <button><a [routerLink]="['/activities', actividad.nombre]" routerLinkActive="active">Go to activity</a></button>
+          </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>
