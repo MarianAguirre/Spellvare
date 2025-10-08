@@ -12,7 +12,7 @@
           </div>
           <div class="botonesTraduccion">
             <p>{{actividad.nombre}}</p>
-            <button><a [routerLink]="['/activities', actividad.nombre]" routerLinkActive="active">Go to activity</a></button>
+            <button><a (click)="goToActivity(actividad)" routerLinkActive="active">Go to activity</a></button>
           </div>
       </div>
     </div>

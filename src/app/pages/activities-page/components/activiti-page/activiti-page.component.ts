@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Actividad } from '../../activities-page.component';
+import { ActividadService } from '../../service/actividad.service';
 
 @Component({
   selector: 'app-activiti-page',
@@ -9,9 +11,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './activiti-page.component.css'
 })
 export class ActivitiPageComponent {
-  actividadNombre: string | null = null;
+  actividad = this.actividadService.getActividad();
 
-  constructor(private route: ActivatedRoute) {
-    this.actividadNombre = this.route.snapshot.paramMap.get('actividad');
-  }
+  constructor(private actividadService: ActividadService) {}
+
 }
