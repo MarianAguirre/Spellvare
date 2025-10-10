@@ -12,13 +12,20 @@ import { CommonModule } from '@angular/common';
 })
 export class BraillePageComponent {
 
+  charOrNumber: boolean = false
+
   brailleMap: Record<string, string> = {
     '⠁': 'a', '⠃': 'b', '⠉': 'c', '⠙': 'd', '⠑': 'e',
     '⠋': 'f', '⠛': 'g', '⠓': 'h', '⠊': 'i', '⠚': 'j',
     '⠅': 'k', '⠇': 'l', '⠍': 'm', '⠝': 'n', '⠕': 'o',
     '⠏': 'p', '⠟': 'q', '⠗': 'r', '⠎': 's', '⠞': 't',
     '⠥': 'u', '⠧': 'v', '⠺': 'w', '⠭': 'x', '⠽': 'y',
-    '⠵': 'z', ' ': ' '
+    '⠵': 'z', '_': ' '
+  };
+
+  brailleMapNumbers: Record<string, string> = {
+    '⠁': '1', '⠃': '2', '⠉': '3', '⠙': '4', '⠑': '5',
+    '⠋': '6', '⠛': '7', '⠓': '7', '⠊': '9', '⠚': '0', '_': ' '
   };
 
   // brailleChars = [
@@ -34,18 +41,33 @@ export class BraillePageComponent {
   brailleChars = [
     ['⠁','⠃','⠉','⠙', '⠑','⠋','⠛','⠓', '⠊','⠚','⠅','⠇', '⠍','⠝','⠕','⠏', '⠟','⠗','⠎','⠞', '⠥','⠧','⠺','⠭', '⠽','⠵','_']
   ];
+  brailleNumbers = [
+    ['⠁', '⠃', '⠉', '⠙', '⠑',
+    '⠋', '⠛', '⠓', '⠊', '⠚','_']
+  ];
+
 
   text = '';
   translation = '';
 
   addBrailleChar(brailleChar: string): void {
-    const translated = this.brailleMap[brailleChar] ?? '';
-    this.text += translated;
-    this.translation = this.text;
+    if(!this.charOrNumber){
+      const translated = this.brailleMap[brailleChar] ?? '';
+      this.text += translated;
+      this.translation = this.text;
+    } else{
+      const translated = this.brailleMapNumbers[brailleChar] ?? '';
+      this.text += translated;
+      this.translation = this.text;
+    }
   }
 
   clear(): void {
     this.text = '';
     this.translation = '';
+  }
+
+  changeBraille(){
+    this.charOrNumber = !this.charOrNumber
   }
 }

@@ -24,16 +24,36 @@ export class TraductorPageComponent {
       'u': '⠥', 'v': '⠧', 'w': '⠺', 'x': '⠭', 'y': '⠽',
       'z': '⠵', "":"   ", " ":"   "
     };
-    convertirText() {
-      this.translation = '';
-      const textLower = this.text.toLowerCase();
-      for (let caracter of textLower) {
-        this.translation += this.brailleMap[caracter] || caracter;
+
+      numberMap: { [key: string]: string } = {
+    '1': '⠁', '2': '⠃', '3': '⠉', '4': '⠙', '5': '⠑',
+    '6': '⠋', '7': '⠛', '8': '⠓', '9': '⠊', '0': '⠚'
+  };
+
+convertText() {
+    this.translation = '';
+    const textLower = this.text.toLowerCase();
+    let isNumberSequence = false;
+
+    for (let i = 0; i < textLower.length; i++) {
+      const char = textLower[i];
+
+      if (/[0-9]/.test(char)) {
+        if (!isNumberSequence) {
+          this.translation += '⠼';
+          isNumberSequence = true;
+        }
+        this.translation += this.numberMap[char];
+      } else {
+        isNumberSequence = false;
+        this.translation += this.brailleMap[char] || char;
       }
-      this.translationService.setTranslation(this.text, this.translation);
-    console.log(this.text, this.translation)
-    this.text = '';
     }
+
+    this.translationService.setTranslation(this.text, this.translation);
+    console.log(this.text, this.translation);
+    this.text = '';
+  }
 
 
 }
