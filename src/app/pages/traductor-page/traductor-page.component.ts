@@ -56,4 +56,30 @@ convertText() {
   }
 
 
+  convertTextLive() {
+  const textLower = this.text.toLowerCase();
+  let result = '';
+  let isNumberSequence = false;
+
+  for (let i = 0; i < textLower.length; i++) {
+    const char = textLower[i];
+
+    if (/[0-9]/.test(char)) {
+      if (!isNumberSequence) {
+        result += '⠼';
+        isNumberSequence = true;
+      }
+      result += this.numberMap[char];
+    } else {
+      isNumberSequence = false;
+      result += this.brailleMap[char] || char;
+    }
+  }
+
+  this.translation = result;
+  this.translationService.setTranslation(this.text, result);
+}
+
+
+
 }

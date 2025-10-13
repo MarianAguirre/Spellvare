@@ -5,8 +5,11 @@
         <form (ngSubmit)="convertText()">
           <h1>Traductor</h1>
           <div class="zonaTraduccion">
-            <input name="text" [(ngModel)]="text" type="text" placeholder="Escribe tu texto aqui" />
-            <textarea name="Traduccion" id="traduccion" placeholder="Tu traduccion estara aqui..." disabled>{{this.translation }}</textarea>
+            <input name="text" [(ngModel)]="text" (ngModelChange)="convertTextLive()" type="text"
+              placeholder="Escribe tu texto aquí..." />
+            <textarea name="Traduccion" id="traduccion" placeholder="Tu traducción estará aquí..."
+              disabled>{{ translation }}</textarea>
+
           </div>
           <div class="botonesTraduccion">
             <button>
