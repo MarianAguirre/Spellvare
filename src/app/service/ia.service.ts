@@ -1,9 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {  Injectable } from '@angular/core';
-import * as dotenv from 'dotenv';
-import { environment } from '../../environments/environments';
 
-dotenv.config();
+//import { environment } from '../../environments/environments';
+
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +10,7 @@ dotenv.config();
 export class IaService {
   constructor(private http: HttpClient) {}
   private apiUrl ='https://router.huggingface.co/v1/chat/completions';
-  private apiKey = environment.hfToken;
+  private apiKey = "";
 
 
 async query(text: string, traduccion: string): Promise<any> {

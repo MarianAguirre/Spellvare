@@ -4,11 +4,12 @@ import { TranslationService } from './service/translation.service';
 import { FormsModule } from '@angular/forms';
 import { IaService } from '../../service/ia.service';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-traductor-page',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, FormsModule, HttpClientModule],
+  imports: [RouterLink, RouterLinkActive, FormsModule, HttpClientModule, CommonModule],
   templateUrl: './traductor-page.component.html',
   styleUrl: './traductor-page.component.css'
 })
@@ -20,6 +21,9 @@ export class TraductorPageComponent {
     text: string = '';
     translation: string = '';
     recomendacion: string = '';
+    hayRecomendacion: boolean = false;
+    isLoading: boolean = false;
+
 
     brailleMap: { [key: string]: string } = {
       'a': '⠁', 'b': '⠃', 'c': '⠉', 'd': '⠙', 'e': '⠑',
@@ -58,7 +62,7 @@ convertText() {
     this.translationService.setTranslation(this.text, this.translation);
     console.log(this.text, this.translation);
     this.text = '';
-      this.generateRecomendation();
+    this.generateRecomendation();
   }
 
 
@@ -88,14 +92,16 @@ convertText() {
 
 }
 
-  async generateRecomendation() {
+ async generateRecomendation() {
   if (!this.translation.trim()) return;
+
+  this.recomendacion = '';
+  this.isLoading = true; // 🔹 Muestra el spinner
 
   try {
     const res: any = await this.iaService.query(this.text, this.translation);
-    console.log(res)
+    console.log(res);
 
-    // Extraemos el texto generado del modelo
     if (res) {
       this.recomendacion = res.choices[0].message.content;
     } else {
@@ -104,6 +110,8 @@ convertText() {
   } catch (error) {
     console.error("Error al generar la recomendación:", error);
     this.recomendacion = "Ocurrió un error al generar la recomendación.";
+  } finally {
+    this.isLoading = false; // 🔹 Oculta el spinner
   }
 }
 
