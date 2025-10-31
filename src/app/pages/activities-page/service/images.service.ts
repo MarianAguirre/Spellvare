@@ -11,11 +11,9 @@ export class ImagesService {
 
   constructor(private http: HttpClient) {}
 
-  /**
-   * Obtiene una imagen aleatoria simple y descriptiva desde Pixabay
-   */
+
   getRandomImage(query: string): Observable<any> {
-    // Pixabay usa estos parámetros
+
     const params = new HttpParams()
       .set('key', this.apiKey)
       .set('q', query)
@@ -23,7 +21,7 @@ export class ImagesService {
       .set('orientation', 'horizontal')
       .set('safesearch', 'true')
       .set('lang', 'es')
-      .set('per_page', 10); // 🔹 Traemos hasta 10 para elegir una aleatoria
+      .set('per_page', 10);
 
     return this.http.get(this.apiUrl, { params });
   }

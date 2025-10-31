@@ -18,6 +18,7 @@ export class ActivitiPageComponent {
   imageUrl: string | null = null;
   currentWord: string = 'flor';
   braille: string = '';
+  tagsImage: string[] = [];
 
   constructor(private actividadService: ActividadService) {}
 
@@ -35,11 +36,8 @@ export class ActivitiPageComponent {
           const description = img.tags || word; // 🔹 Usa tags como descripción simple
           console.log('Imagen:', img);
           console.log('Descripción:', description);
-
-          // Ejemplo: si luego integras el traductor de braille
-          // this.traductor.text = description;
-          // this.traductor.convertText();
-          // this.braille = this.traductor.translation;
+          this.tagsImage = description.split(',')
+          console.log(this.tagsImage)
         } else {
           console.warn('No se encontraron imágenes para:', word);
           this.imageUrl = null;
@@ -50,7 +48,9 @@ export class ActivitiPageComponent {
   }
 
   nextWord() {
-    const words = ['manzana', 'perro', 'flor', 'árbol', 'auto', 'silla', 'libro', 'gato', 'taza'];
+    const words = ['manzana', 'perro', 'flor', 'árbol', 'auto', 'silla', 'libro', 'gato', 'taza', 'raton'];
+    // const words = ['pikachu'];
+
     this.currentWord = words[Math.floor(Math.random() * words.length)];
     this.loadRandomImage(this.currentWord);
   }

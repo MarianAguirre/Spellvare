@@ -6,13 +6,18 @@
     *ngIf="imageUrl"
     [src]="imageUrl"
     alt="Imagen aleatoria"
+    width="20%"
+    height="20%"
     class="rounded-lg shadow-lg w-64 h-64 object-cover mb-4"
   />
   <button (click)="nextWord()" class="bg-blue-600 text-white px-4 py-2 rounded-lg">
     Otra imagen
   </button>
+  <div *ngIf="imageUrl">
+    <p>Tags de la imagen: {{ tagsImage.toString() }}</p>
+    <p>Tag que se usara para adivinar: {{ tagsImage[0].toString() }}</p>
+  </div>
 
-  <p>{{ braille }}</p>
 </div>
 
 <app-button-home></app-button-home>
