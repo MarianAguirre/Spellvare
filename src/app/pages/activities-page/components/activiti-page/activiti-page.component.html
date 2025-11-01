@@ -18,8 +18,12 @@
     <p>Tag que se usara para adivinar: {{ tagsImage[0].toString() }}</p>
     <p>braille: {{ braille }}</p>
 
-    <app-keyboard-braille/>
+    <input [(ngModel)]="translation" disabled >
+    <input [(ngModel)]="brailleTranslationText" disabled>
+    <button (click)="clear()">BOrrar</button>
+    <button (click)="confirm()">confirmar</button>
 
+    <app-keyboard-braille [(translation)]="translation" (brailleTranslation)="brailleTranslation($event)"/>
   </div>
 
 </div>

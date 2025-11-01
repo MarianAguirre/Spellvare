@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, SimpleChanges } from '@angular/core';
+import { BrailleServiceService } from '../../service/braille.service';
 
 @Component({
   selector: 'app-keyboard-braille',
@@ -9,8 +10,11 @@ import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/
   styleUrl: './keyboard-braille.component.css'
 })
 export class KeyboardBrailleComponent {
+  private brailleService = inject(BrailleServiceService)
+
   @Input() translation = '';
   @Output() translationChange = new EventEmitter<string>();
+  @Output() brailleTranslation = new  EventEmitter<string>();
 
   public charOrNumber: boolean = false
   public text = '';
@@ -49,9 +53,20 @@ export class KeyboardBrailleComponent {
     this.text += translated;
     this.translation = this.text;
     this.translationChange.emit(this.translation);
+    this.brailleTranslation.emit(this.brailleService.convertText(this.translation));
   }
 
   changeBraille(){
     this.charOrNumber = !this.charOrNumber
+  }
+
+  deleteLastChar(): void {
+    if (this.text.length > 0) {
+      this.text = this.text.slice(0, -1);
+      this.translation = this.text;
+      this.translationChange.emit(this.translation);
+      this.brailleTranslation.emit(this.brailleService.convertText(this.translation));
+
+    }
   }
 }

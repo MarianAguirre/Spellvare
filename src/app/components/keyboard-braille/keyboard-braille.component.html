@@ -1,6 +1,9 @@
 <div class="braille-panel">
   <div class="buttons">
-    <button (click)="changeBraille()">{{charOrNumber ? '#' : '⠟'}}</button>
+    <div style=" display: flex; gap: 1rem;">
+      <button (click)="changeBraille()">{{charOrNumber ? '#' : '⠟'}}</button>
+      <button (click)="deleteLastChar()">⌫</button>
+    </div>
     @if(!charOrNumber){
     <div *ngFor="let row of brailleChars" class="row">
       <button *ngFor="let char of row" (click)="addBrailleChar(char)">

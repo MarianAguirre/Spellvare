@@ -5,11 +5,12 @@ import { ImagesService } from '../../service/images.service';
 import { CommonModule } from '@angular/common';
 import { BrailleServiceService } from '../../../../service/braille.service';
 import { KeyboardBrailleComponent } from "../../../../components/keyboard-braille/keyboard-braille.component";
+import { FormsModule } from "@angular/forms";
 
 @Component({
   selector: 'app-activiti-page',
   standalone: true,
-  imports: [ButtonHomeComponent, CommonModule, KeyboardBrailleComponent],
+  imports: [ButtonHomeComponent, CommonModule, KeyboardBrailleComponent, FormsModule],
   templateUrl: './activiti-page.component.html',
   styleUrl: './activiti-page.component.css',
 })
@@ -22,11 +23,15 @@ export class ActivitiPageComponent {
   public imageUrl: string | null = null;
   public braille: string = '';
   public tagsImage: string[] = [];
+  public translation: string = '';
+  public brailleTranslationText: string = '';
+
 
   constructor(private actividadService: ActividadService) {}
 
   ngOnInit() {
     this.loadRandomImage(this.currentWord);
+
   }
 
   loadRandomImage(word: string) {
@@ -57,4 +62,23 @@ export class ActivitiPageComponent {
     this.currentWord = words[Math.floor(Math.random() * words.length)];
     this.loadRandomImage(this.currentWord);
   }
+
+
+  brailleTranslation(value: string){
+    this.brailleTranslationText = value
+  }
+
+    clear(): void {
+    this.translation = '';
+    this.brailleTranslationText='';
+  }
+
+  confirm(): void {
+    if(this.braille === this.brailleTranslationText){
+      window.alert("ES correcto")
+    } else{
+      window.alert("ES incorrecto")
+    }
+  }
+
 }
