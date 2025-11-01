@@ -1,0 +1,18 @@
+<div class="braille-panel">
+  <div class="buttons">
+    <button (click)="changeBraille()">{{charOrNumber ? '#' : '⠟'}}</button>
+    @if(!charOrNumber){
+    <div *ngFor="let row of brailleChars" class="row">
+      <button *ngFor="let char of row" (click)="addBrailleChar(char)">
+        {{ char }}
+      </button>
+    </div>
+    } @else{
+    <div *ngFor="let row of brailleNumbers" class="row">
+      <button *ngFor="let char of row" (click)="addBrailleChar(char)">
+        {{ char }}
+      </button>
+    </div>
+    }
+  </div>
+</div>

@@ -4,11 +4,12 @@ import { ButtonHomeComponent } from '../../../../components/button-home/button-h
 import { ImagesService } from '../../service/images.service';
 import { CommonModule } from '@angular/common';
 import { BrailleServiceService } from '../../../../service/braille.service';
+import { KeyboardBrailleComponent } from "../../../../components/keyboard-braille/keyboard-braille.component";
 
 @Component({
   selector: 'app-activiti-page',
   standalone: true,
-  imports: [ButtonHomeComponent, CommonModule],
+  imports: [ButtonHomeComponent, CommonModule, KeyboardBrailleComponent],
   templateUrl: './activiti-page.component.html',
   styleUrl: './activiti-page.component.css',
 })

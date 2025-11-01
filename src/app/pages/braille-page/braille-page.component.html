@@ -3,7 +3,7 @@
     <h1>Traductor Braille - Español</h1>
 
     <div class="translation-area">
-      <div class="braille-panel">
+      <!-- <div class="braille-panel">
         <div class="buttons">
           <button (click)="changeBraille()">{{charOrNumber ? '#' : '⠟'}}</button>
           @if(!charOrNumber){
@@ -20,8 +20,8 @@
             </div>
           }
         </div>
-      </div>
-
+      </div> -->
+      <app-keyboard-braille class="braille-panel" [(translation)]="translation"/>
       <div class="text-panel">
         <textarea disabled>{{ translation }}</textarea>
       </div>
