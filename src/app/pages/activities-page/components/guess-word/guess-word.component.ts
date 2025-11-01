@@ -1,0 +1,84 @@
+import { Component, inject } from '@angular/core';
+import { BrailleServiceService } from '../../../../service/braille.service';
+import { ActividadService } from '../../service/actividad.service';
+import { ImagesService } from '../../service/images.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ButtonHomeComponent } from '../../../../components/button-home/button-home.component';
+import { KeyboardBrailleComponent } from '../../../../components/keyboard-braille/keyboard-braille.component';
+
+@Component({
+  selector: 'app-guess-word',
+  standalone: true,
+  imports: [CommonModule, FormsModule, ButtonHomeComponent, KeyboardBrailleComponent],
+  templateUrl: './guess-word.component.html',
+  styleUrl: './guess-word.component.css'
+})
+export class GuessWordComponent {
+  public actividad = this.actividadService.getActividad();
+  private imagesService = inject(ImagesService);
+  private brailleService = inject(BrailleServiceService)
+
+  private currentWord: string = 'flor';
+  public imageUrl: string | null = null;
+  public braille: string = '';
+  public tagsImage: string[] = [];
+  public translation: string = '';
+  public brailleTranslationText: string = '';
+
+
+  constructor(private actividadService: ActividadService) {}
+
+  ngOnInit() {
+    this.loadRandomImage(this.currentWord);
+
+  }
+
+  loadRandomImage(word: string) {
+    this.imagesService.getRandomImage(word).subscribe({
+      next: (data: any) => {
+        if (data && data.hits && data.hits.length > 0) {
+          const randomIndex = Math.floor(Math.random() * data.hits.length);
+          const img = data.hits[randomIndex];
+          this.imageUrl = img.previewURL; // 🔹 URL principal de la imagen
+          const description = img.tags || word; // 🔹 Usa tags como descripción simple
+          console.log('Imagen:', img);
+          console.log('Descripción:', description);
+          this.tagsImage = description.split(',')
+          this.braille = this.brailleService.convertText(this.tagsImage[0]);
+
+        } else {
+          console.warn('No se encontraron imágenes para:', word);
+          this.imageUrl = null;
+        }
+      },
+      error: (err) => console.error('Error cargando imagen:', err),
+    });
+  }
+
+  nextWord() {
+    const words = ['manzana', 'perro', 'flor', 'árbol', 'auto', 'silla', 'libro', 'gato', 'taza', 'raton'];
+    // const words = ['pikachu'];
+    this.currentWord = words[Math.floor(Math.random() * words.length)];
+    this.loadRandomImage(this.currentWord);
+  }
+
+
+  brailleTranslation(value: string){
+    this.brailleTranslationText = value
+  }
+
+    clear(): void {
+    this.translation = '';
+    this.brailleTranslationText='';
+  }
+
+  confirm(): void {
+    if(this.braille === this.brailleTranslationText){
+      window.alert("ES correcto")
+    } else{
+      window.alert("ES incorrecto")
+    }
+  }
+
+}

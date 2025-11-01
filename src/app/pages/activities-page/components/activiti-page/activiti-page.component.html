@@ -1,31 +1,4 @@
 <h2>Actividad: {{ actividad?.nombre }}</h2>
-<div class="flex flex-col items-center p-4">
-  <h2 class="text-xl font-bold mb-2">Adivina la palabra en braille</h2>
 
-  <img
-    *ngIf="imageUrl"
-    [src]="imageUrl"
-    alt="Imagen aleatoria"
-    width="20%"
-    height="20%"
-    class="rounded-lg shadow-lg w-64 h-64 object-cover mb-4"
-  />
-  <button (click)="nextWord()" class="bg-blue-600 text-white px-4 py-2 rounded-lg">
-    Otra imagen
-  </button>
-  <div *ngIf="imageUrl">
-    <p>Tags de la imagen: {{ tagsImage.toString() }}</p>
-    <p>Tag que se usara para adivinar: {{ tagsImage[0].toString() }}</p>
-    <p>braille: {{ braille }}</p>
-
-    <input [(ngModel)]="translation" disabled >
-    <input [(ngModel)]="brailleTranslationText" disabled>
-    <button (click)="clear()">BOrrar</button>
-    <button (click)="confirm()">confirmar</button>
-
-    <app-keyboard-braille [(translation)]="translation" (brailleTranslation)="brailleTranslation($event)"/>
-  </div>
-
-</div>
 
 <app-button-home></app-button-home>

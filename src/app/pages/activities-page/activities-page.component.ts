@@ -36,4 +36,7 @@ export class ActivitiesPageComponent {
     this.actividadService.setActividad(actividad);
     this.router.navigate(['/activities', actividad.path]);
   }
+  goToGuss(){
+    this.router.navigate(['/guss'])
+  }
 }
