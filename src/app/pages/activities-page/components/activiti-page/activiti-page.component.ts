@@ -3,6 +3,7 @@ import { ActividadService } from '../../service/actividad.service';
 import { ButtonHomeComponent } from '../../../../components/button-home/button-home.component';
 import { ImagesService } from '../../service/images.service';
 import { CommonModule } from '@angular/common';
+import { BrailleServiceService } from '../../../../service/braille.service';
 
 @Component({
   selector: 'app-activiti-page',
@@ -12,13 +13,14 @@ import { CommonModule } from '@angular/common';
   styleUrl: './activiti-page.component.css',
 })
 export class ActivitiPageComponent {
-  actividad = this.actividadService.getActividad();
+  public actividad = this.actividadService.getActividad();
   private imagesService = inject(ImagesService);
+  private brailleService = inject(BrailleServiceService)
 
-  imageUrl: string | null = null;
-  currentWord: string = 'flor';
-  braille: string = '';
-  tagsImage: string[] = [];
+  private currentWord: string = 'flor';
+  public imageUrl: string | null = null;
+  public braille: string = '';
+  public tagsImage: string[] = [];
 
   constructor(private actividadService: ActividadService) {}
 
@@ -37,7 +39,8 @@ export class ActivitiPageComponent {
           console.log('Imagen:', img);
           console.log('Descripción:', description);
           this.tagsImage = description.split(',')
-          console.log(this.tagsImage)
+          this.braille = this.brailleService.convertText(this.tagsImage[0]);
+
         } else {
           console.warn('No se encontraron imágenes para:', word);
           this.imageUrl = null;
@@ -50,7 +53,6 @@ export class ActivitiPageComponent {
   nextWord() {
     const words = ['manzana', 'perro', 'flor', 'árbol', 'auto', 'silla', 'libro', 'gato', 'taza', 'raton'];
     // const words = ['pikachu'];
-
     this.currentWord = words[Math.floor(Math.random() * words.length)];
     this.loadRandomImage(this.currentWord);
   }
