@@ -45,7 +45,7 @@ export class GuessWordComponent {
           console.log('Imagen:', img);
           console.log('Descripción:', description);
           this.tagsImage = description.split(',')
-          this.braille = this.brailleService.convertText(this.tagsImage[0]);
+          this.braille = this.brailleService.convertText(this.getRandomText());
 
         } else {
           console.warn('No se encontraron imágenes para:', word);
@@ -63,6 +63,14 @@ export class GuessWordComponent {
     this.loadRandomImage(this.currentWord);
   }
 
+  getRandomText(){
+    let arrayPalabras = this.tagsImage.slice(0,5)
+    console.log(arrayPalabras)
+    let palabra = arrayPalabras[Math.floor(Math.random() * arrayPalabras.length)]
+    console.log(palabra)
+    return palabra
+  }
+
 
   brailleTranslation(value: string){
     this.brailleTranslationText = value
@@ -74,10 +82,18 @@ export class GuessWordComponent {
   }
 
   confirm(): void {
-    if(this.braille === this.brailleTranslationText){
+    console.log(this.braille.trim())
+    console.log(this.brailleTranslationText)
+    if(this.braille.trim() === this.brailleTranslationText){
       window.alert("ES correcto")
+      this.nextWord();
+      this.translation = '';
+      this.brailleTranslationText='';
+      console.log("correcto")
     } else{
       window.alert("ES incorrecto")
+      console.log("incorrecto")
+
     }
   }
 
