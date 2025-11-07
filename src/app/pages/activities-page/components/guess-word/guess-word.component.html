@@ -1,32 +1,43 @@
+<div class="guess-container">
+  <h2>Guess the word</h2>
 
-<div style="width: 100%;height: 90vh;display: flex;flex-direction: column;align-items: center;">
-  <h2>Guss the word</h2>
-  <div style="width: 85%;display: flex;flex-direction: column;align-items: center;border: 1px solid #d9d9d9;border-radius: 12px;padding: 30px;    background-color: white;">
+  <!-- 🧭 Panel superior con tiempo y puntos -->
+  <div class="game-info" *ngIf="imageUrl">
+    <p>⏱️ Tiempo: <span>{{ timeLeft }}</span> s</p>
+    <p>🏆 Puntos: <span>{{ score }}</span></p>
+  </div>
 
+  <div class="card">
     <img
       *ngIf="imageUrl"
       [src]="imageUrl"
       alt="Imagen aleatoria"
-      width="15%"
-      height="15%"
+      class="image"
     />
-    <button (click)="nextWord()">
-      Otra imagen
-    </button>
-    <div *ngIf="imageUrl">
-      <p>Tags de la imagen: {{ tagsImage.slice(0,5).toString() }}</p>
-      <p>Tag que se usara para adivinar: {{ tagsImage[0].toString() }}</p>
-      <p>braille: {{ braille }}</p>
 
-      <input [(ngModel)]="translation" disabled >
-      <input [(ngModel)]="brailleTranslationText" disabled>
-      <button (click)="clear()">BOrrar</button>
-      <button (click)="confirm()">confirmar</button>
+    <button class="btn primary" (click)="nextWord()">🔄 Otra imagen</button>
 
-      <app-keyboard-braille [(translation)]="translation" (brailleTranslation)="brailleTranslation($event)"/>
+    <div *ngIf="imageUrl" class="info-section">
+      <p><strong>Tags de la imagen:</strong> {{ tagsImage.slice(0,5).toString() }}</p>
+      <p><strong>Tag a adivinar:</strong> {{ tagsImage[0].toString() }}</p>
+      <p><strong>Braille:</strong> {{ braille }}</p>
+
+      <div class="inputs">
+        <input [(ngModel)]="translation" disabled placeholder="Texto original" />
+        <input [(ngModel)]="brailleTranslationText" disabled placeholder="Traducción en braille" />
+      </div>
+
+      <div class="buttons">
+        <button class="btn secondary" (click)="clear()">🧹 Borrar</button>
+        <button class="btn success" (click)="confirm()">✅ Confirmar</button>
+      </div>
+
+      <app-keyboard-braille
+        [(translation)]="translation"
+        (brailleTranslation)="brailleTranslation($event)">
+      </app-keyboard-braille>
     </div>
   </div>
 
+  <app-button-home></app-button-home>
 </div>
-
-<app-button-home></app-button-home>

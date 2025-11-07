@@ -25,14 +25,36 @@ export class GuessWordComponent {
   public tagsImage: string[] = [];
   public translation: string = '';
   public brailleTranslationText: string = '';
+  public timeLeft: number = 15;
+  public score: number = 0;
+  private timer: any = null;
 
 
   constructor(private actividadService: ActividadService) {}
 
   ngOnInit() {
     this.loadRandomImage(this.currentWord);
-
+    this.startTimer();
   }
+
+  startTimer() {
+  clearInterval(this.timer);
+  this.timeLeft = 15;
+  this.timer = setInterval(() => {
+    this.timeLeft--;
+    if (this.timeLeft <= 0) {
+      clearInterval(this.timer);
+      alert('⏰ ¡Tiempo agotado!');
+      this.nextWord();
+      this.resetTimer();
+    }
+  }, 1000);
+}
+
+resetTimer() {
+  clearInterval(this.timer);
+  this.startTimer();
+}
 
   loadRandomImage(word: string) {
     this.imagesService.getRandomImage(word).subscribe({
@@ -82,19 +104,16 @@ export class GuessWordComponent {
   }
 
   confirm(): void {
-    console.log(this.braille.trim())
-    console.log(this.brailleTranslationText)
-    if(this.braille.trim() === this.brailleTranslationText){
-      window.alert("ES correcto")
-      this.nextWord();
-      this.translation = '';
-      this.brailleTranslationText='';
-      console.log("correcto")
-    } else{
-      window.alert("ES incorrecto")
-      console.log("incorrecto")
-
-    }
+  if (this.braille.trim() === this.brailleTranslationText) {
+    window.alert('✅ ¡Correcto!');
+    this.score++;
+    this.nextWord();
+    this.translation = '';
+    this.brailleTranslationText = '';
+    this.resetTimer();
+  } else {
+    window.alert('❌ Incorrecto');
   }
+}
 
 }
