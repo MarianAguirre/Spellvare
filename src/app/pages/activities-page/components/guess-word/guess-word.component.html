@@ -1,42 +1,41 @@
 <div class="guess-container">
   <h2>Guess the word</h2>
 
-  <!-- 🧭 Panel superior con tiempo y puntos -->
   <div class="game-info" *ngIf="imageUrl">
     <p>⏱️ Tiempo: <span>{{ timeLeft }}</span> s</p>
     <p>🏆 Puntos: <span>{{ score }}</span></p>
   </div>
 
   <div class="card">
-    <img
-      *ngIf="imageUrl"
-      [src]="imageUrl"
-      alt="Imagen aleatoria"
-      class="image"
-    />
-
-    <button class="btn primary" (click)="nextWord()">🔄 Otra imagen</button>
-
     <div *ngIf="imageUrl" class="info-section">
-      <p><strong>Tags de la imagen:</strong> {{ tagsImage.slice(0,5).toString() }}</p>
-      <p><strong>Tag a adivinar:</strong> {{ tagsImage[0].toString() }}</p>
-      <p><strong>Braille:</strong> {{ braille }}</p>
 
-      <div class="inputs">
-        <input [(ngModel)]="translation" disabled placeholder="Texto original" />
-        <input [(ngModel)]="brailleTranslationText" disabled placeholder="Traducción en braille" />
-      </div>
-
-      <div class="buttons">
-        <button class="btn secondary" (click)="clear()">🧹 Borrar</button>
-        <button class="btn success" (click)="confirm()">✅ Confirmar</button>
-      </div>
-
-      <app-keyboard-braille
-        [(translation)]="translation"
-        (brailleTranslation)="brailleTranslation($event)">
+      <app-keyboard-braille [(translation)]="translation" (brailleTranslation)="brailleTranslation($event)">
       </app-keyboard-braille>
     </div>
+    <div class="imagen">
+
+      <img *ngIf="imageUrl" [src]="imageUrl" alt="Imagen aleatoria" class="image" />
+      <p><strong>Tags de la imagen:</strong> {{ tagsImage.slice(0,5).toString() }}</p>
+      <!-- <p><strong>Tag a adivinar:</strong> {{ tagsImage[0].toString() }}</p> -->
+      <!-- <p><strong>Braille:</strong> {{ braille }}</p> -->
+      <div class="group">
+        <div class="inputs">
+          <input [(ngModel)]="translation" disabled placeholder="Texto original" />
+          <input [(ngModel)]="brailleTranslationText" disabled placeholder="Traducción en braille" />
+        </div>
+
+        <div class="buttons">
+          <button class="btn secondary" (click)="clear()">Borrar</button>
+          <button class="btn success" (click)="confirm()">Confirmar</button>
+
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- <button class="btn primary" (click)="nextWord()">🔄 Otra imagen</button> -->
+
   </div>
 
   <app-button-home></app-button-home>

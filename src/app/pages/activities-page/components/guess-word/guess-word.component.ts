@@ -25,7 +25,7 @@ export class GuessWordComponent {
   public tagsImage: string[] = [];
   public translation: string = '';
   public brailleTranslationText: string = '';
-  public timeLeft: number = 15;
+  public timeLeft: number = 0;
   public score: number = 0;
   private timer: any = null;
 
@@ -39,12 +39,12 @@ export class GuessWordComponent {
 
   startTimer() {
   clearInterval(this.timer);
-  this.timeLeft = 15;
+  this.timeLeft = 45;
   this.timer = setInterval(() => {
     this.timeLeft--;
     if (this.timeLeft <= 0) {
       clearInterval(this.timer);
-      alert('⏰ ¡Tiempo agotado!');
+      // alert('Tiempo agotado');
       this.nextWord();
       this.resetTimer();
     }
@@ -55,6 +55,23 @@ resetTimer() {
   clearInterval(this.timer);
   this.startTimer();
 }
+
+pauseTimer(){
+  clearInterval(this.timer);
+}
+
+resumeTimer() {
+  clearInterval(this.timer);
+  this.timer = setInterval(() => {
+    this.timeLeft--;
+    if (this.timeLeft <= 0) {
+      clearInterval(this.timer);
+      this.nextWord();
+      this.resetTimer();
+    }
+  }, 1000);
+}
+
 
   loadRandomImage(word: string) {
     this.imagesService.getRandomImage(word).subscribe({
@@ -104,15 +121,17 @@ resetTimer() {
   }
 
   confirm(): void {
+    this.pauseTimer();
   if (this.braille.trim() === this.brailleTranslationText) {
-    window.alert('✅ ¡Correcto!');
+    window.alert('Correcto');
     this.score++;
     this.nextWord();
     this.translation = '';
     this.brailleTranslationText = '';
     this.resetTimer();
   } else {
-    window.alert('❌ Incorrecto');
+    window.alert('Incorrecto');
+    this.resumeTimer();
   }
 }
 

@@ -9,24 +9,11 @@
               placeholder="Escribe tu texto aquí..." />
             <textarea name="Traduccion" id="traduccion" placeholder="Tu traducción estará aquí..."
               disabled>{{ translation }}</textarea>
-              <div style="width: 60%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-  
-  <!-- Spinner visible solo cuando está cargando -->
-  <div *ngIf="isLoading" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-    <div class="spinner"></div>
-    <p style="font-size: x-small;">Cargando recomendación de la IA...</p>
-  </div>
-
-  <!-- Mostrar recomendación solo cuando haya texto -->
-  <p *ngIf="!isLoading && recomendacion" style="font-size: xx-small;">{{ recomendacion }}</p>
-</div>
-
           </div>
           <div class="botonesTraduccion">
             <button>
               <a routerLink="/braille" routerLinkActive="active">Braille</a>
             </button>
-            <button type="submit" style="padding: 12px 30px" [disabled]="!text.trim()">Recomendacion con IA</button>
           </div>
         </form>
       </div>
