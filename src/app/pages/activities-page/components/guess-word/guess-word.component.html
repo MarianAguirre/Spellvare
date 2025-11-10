@@ -15,10 +15,10 @@
     <div class="imagen">
 
       <img *ngIf="imageUrl" [src]="imageUrl" alt="Imagen aleatoria" class="image" />
-      <p><strong>Tags de la imagen:</strong> {{ tagsImage.slice(0,5).toString() }}</p>
+      <p id="Pistas"><strong>Pistas:</strong> {{ tagsImage.slice(0,5).toString() }}</p>
       <!-- <p><strong>Tag a adivinar:</strong> {{ tagsImage[0].toString() }}</p> -->
       <!-- <p><strong>Braille:</strong> {{ braille }}</p> -->
-      <div class="group">
+      <div class="group" id="group">
         <div class="inputs">
           <input [(ngModel)]="translation" disabled placeholder="Texto original" />
           <input [(ngModel)]="brailleTranslationText" disabled placeholder="Traducción en braille" />

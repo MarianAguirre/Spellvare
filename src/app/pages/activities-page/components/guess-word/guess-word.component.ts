@@ -33,7 +33,7 @@ export class GuessWordComponent {
   public tagsImage: string[] = [];
   public translation: string = '';
   public brailleTranslationText: string = '';
-  public timeLeft: number = 0;
+  public timeLeft: number = 45;
   public score: number = 0;
   private timer: any = null;
 
@@ -42,9 +42,10 @@ export class GuessWordComponent {
   ngOnInit() {
     this.startProductTour();
     this.loadRandomImage(this.currentWord);
-    this.startTimer();
+
   }
   startProductTour(): void {
+    this.pauseTimer();
     const driverObj = driver({
       showProgress: true,
       steps: [
@@ -55,6 +56,14 @@ export class GuessWordComponent {
             description: 'Estas son algunas instrucciones y explicaciones del funcionamiento del juego, puedes elejir saltarlo cerrando este dialogo',
           },
         },
+
+        {
+          element: '#guess-container',
+          popover: {
+            title: 'El juego',
+            description: 'Este juego consiste en adivinar la palabra  que describe la imagen y escribirla con el teclado en braille pero cuiado, no todo es lo que parece...',
+          },
+        },
         {
           element: '#game-info',
           popover: {
@@ -63,15 +72,34 @@ export class GuessWordComponent {
           },
         },
         {
-          element: '#card',
+          element: '#Pistas',
           popover: {
-            title: 'Next Step',
-            description: 'Here is another key feature.',
+            title: 'Palabras',
+            description: 'Estas palabras sirven como pista y a su vez entre las palabras se encuentra la respuesta correcta, puedes intentar adivinar con todas pero si no tienes el conocimiento en braille necesario el tiempo te alcanzara',
           },
         },
-        // Add more steps as needed
+        {
+          element: '#group',
+          popover: {
+            title: 'Zona de respuesta',
+            description: 'Aqui podras ver lo que estas escribiendo tanto en braille como en español, cuando tengas tu respuesta puedes confirmar si es correcta con el el boton, de caso contrario con el boton de borrar puedes eliminar lo escrito completamente.',
+          },
+        },
+        {
+          element: '.root',
+          popover: {
+            title: 'Fin del tutorial',
+            description: 'Consideramos que ya te hemos explicado lo necesario para entender el juego, diviertete practicando de esta forma braille!',
+          },
+        },
       ],
-    });
+      onDestroyStarted: () => {
+      console.log('Tutorial cerrado, iniciando temporizador...');
+      this.startTimer();
+      driverObj.destroy();
+    },
+    }
+  );
 
     driverObj.drive();
   }
