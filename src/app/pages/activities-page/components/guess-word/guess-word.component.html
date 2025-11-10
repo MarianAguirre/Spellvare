@@ -1,12 +1,12 @@
-<div class="guess-container">
+<div class="guess-container" id="guess-container">
   <h2>Guess the word</h2>
 
-  <div class="game-info" *ngIf="imageUrl">
-    <p>⏱️ Tiempo: <span>{{ timeLeft }}</span> s</p>
+  <div class="game-info" *ngIf="imageUrl" id="game-info">
+    <p>⏱️ Tiempo: <span>{{ timeLeft }}</span></p>
     <p>🏆 Puntos: <span>{{ score }}</span></p>
   </div>
 
-  <div class="card">
+  <div class="card" id="card">
     <div *ngIf="imageUrl" class="info-section">
 
       <app-keyboard-braille [(translation)]="translation" (brailleTranslation)="brailleTranslation($event)">

@@ -7,17 +7,25 @@ import { FormsModule } from '@angular/forms';
 import { ButtonHomeComponent } from '../../../../components/button-home/button-home.component';
 import { KeyboardBrailleComponent } from '../../../../components/keyboard-braille/keyboard-braille.component';
 
+import 'driver.js/dist/driver.css';
+import { Driver, driver } from 'driver.js';
+
 @Component({
   selector: 'app-guess-word',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonHomeComponent, KeyboardBrailleComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ButtonHomeComponent,
+    KeyboardBrailleComponent,
+  ],
   templateUrl: './guess-word.component.html',
-  styleUrl: './guess-word.component.css'
+  styleUrl: './guess-word.component.css',
 })
 export class GuessWordComponent {
   public actividad = this.actividadService.getActividad();
   private imagesService = inject(ImagesService);
-  private brailleService = inject(BrailleServiceService)
+  private brailleService = inject(BrailleServiceService);
 
   private currentWord: string = 'flor';
   public imageUrl: string | null = null;
@@ -29,49 +37,79 @@ export class GuessWordComponent {
   public score: number = 0;
   private timer: any = null;
 
-
   constructor(private actividadService: ActividadService) {}
 
   ngOnInit() {
+    this.startProductTour();
     this.loadRandomImage(this.currentWord);
     this.startTimer();
   }
+  startProductTour(): void {
+    const driverObj = driver({
+      showProgress: true,
+      steps: [
+        {
+          element: '.root',
+          popover: {
+            title: 'Bienvenido al Tutorial!',
+            description: 'Estas son algunas instrucciones y explicaciones del funcionamiento del juego, puedes elejir saltarlo cerrando este dialogo',
+          },
+        },
+        {
+          element: '#game-info',
+          popover: {
+            title: 'Tiempo y puntos',
+            description: 'Aqui puedes observar el tiempo restante que posees para adivinar la palabra, si es correcta se te sumaran puntos de progreso',
+          },
+        },
+        {
+          element: '#card',
+          popover: {
+            title: 'Next Step',
+            description: 'Here is another key feature.',
+          },
+        },
+        // Add more steps as needed
+      ],
+    });
+
+    driverObj.drive();
+  }
 
   startTimer() {
-  clearInterval(this.timer);
-  this.timeLeft = 45;
-  this.timer = setInterval(() => {
-    this.timeLeft--;
-    if (this.timeLeft <= 0) {
-      clearInterval(this.timer);
-      // alert('Tiempo agotado');
-      this.nextWord();
-      this.resetTimer();
-    }
-  }, 1000);
-}
+    clearInterval(this.timer);
+    this.timeLeft = 45;
+    this.timer = setInterval(() => {
+      this.timeLeft--;
+      if (this.timeLeft <= 0) {
+        clearInterval(this.timer);
+        // alert('Tiempo agotado');
+        this.nextWord();
+        this.resetTimer();
+      }
+    }, 1000);
+  }
 
-resetTimer() {
-  clearInterval(this.timer);
-  this.startTimer();
-}
+  resetTimer() {
+    clearInterval(this.timer);
+    this.startTimer();
+  }
 
-pauseTimer(){
-  clearInterval(this.timer);
-}
+  pauseTimer() {
+    clearInterval(this.timer);
+  }
 
-resumeTimer() {
-  clearInterval(this.timer);
-  this.timer = setInterval(() => {
-    this.timeLeft--;
-    if (this.timeLeft <= 0) {
-      clearInterval(this.timer);
-      this.nextWord();
-      this.resetTimer();
-    }
-  }, 1000);
-}
-
+  resumeTimer() {
+    clearInterval(this.timer);
+    this.timer = setInterval(() => {
+      this.timeLeft--;
+      if (this.timeLeft <= 0) {
+        clearInterval(this.timer);
+        this.nextWord();
+        this.resetTimer();
+      }
+    }, 1000);
+  }
 
   loadRandomImage(word: string) {
     this.imagesService.getRandomImage(word).subscribe({
@@ -83,9 +121,8 @@ resumeTimer() {
           const description = img.tags || word; // 🔹 Usa tags como descripción simple
           console.log('Imagen:', img);
           console.log('Descripción:', description);
-          this.tagsImage = description.split(',')
+          this.tagsImage = description.split(',');
           this.braille = this.brailleService.convertText(this.getRandomText());
-
         } else {
           console.warn('No se encontraron imágenes para:', word);
           this.imageUrl = null;
@@ -96,43 +133,53 @@ resumeTimer() {
   }
 
   nextWord() {
-    const words = ['manzana', 'perro', 'flor', 'árbol', 'auto', 'silla', 'libro', 'gato', 'taza', 'raton'];
+    const words = [
+      'manzana',
+      'perro',
+      'flor',
+      'árbol',
+      'auto',
+      'silla',
+      'libro',
+      'gato',
+      'taza',
+      'raton',
+    ];
     // const words = ['pikachu'];
     this.currentWord = words[Math.floor(Math.random() * words.length)];
     this.loadRandomImage(this.currentWord);
   }
 
-  getRandomText(){
-    let arrayPalabras = this.tagsImage.slice(0,5)
-    console.log(arrayPalabras)
-    let palabra = arrayPalabras[Math.floor(Math.random() * arrayPalabras.length)]
-    console.log(palabra)
-    return palabra
+  getRandomText() {
+    let arrayPalabras = this.tagsImage.slice(0, 5);
+    console.log(arrayPalabras);
+    let palabra =
+      arrayPalabras[Math.floor(Math.random() * arrayPalabras.length)];
+    console.log(palabra);
+    return palabra;
   }
 
-
-  brailleTranslation(value: string){
-    this.brailleTranslationText = value
+  brailleTranslation(value: string) {
+    this.brailleTranslationText = value;
   }
 
-    clear(): void {
+  clear(): void {
     this.translation = '';
-    this.brailleTranslationText='';
+    this.brailleTranslationText = '';
   }
 
   confirm(): void {
     this.pauseTimer();
-  if (this.braille.trim() === this.brailleTranslationText) {
-    window.alert('Correcto');
-    this.score++;
-    this.nextWord();
-    this.translation = '';
-    this.brailleTranslationText = '';
-    this.resetTimer();
-  } else {
-    window.alert('Incorrecto');
-    this.resumeTimer();
+    if (this.braille.trim() === this.brailleTranslationText) {
+      window.alert('Correcto');
+      this.score++;
+      this.nextWord();
+      this.translation = '';
+      this.brailleTranslationText = '';
+      this.resetTimer();
+    } else {
+      window.alert('Incorrecto');
+      this.resumeTimer();
+    }
   }
-}
-
 }
