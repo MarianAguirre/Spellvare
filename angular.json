@@ -30,7 +30,7 @@
               "src/styles.css"
             ],
             "scripts": [
-                "node_modules/driver.js/dist/driver.iife.js"
+                "node_modules/driver.js/dist/driver.js.iife.js"
             ]
           },
           "configurations": {
