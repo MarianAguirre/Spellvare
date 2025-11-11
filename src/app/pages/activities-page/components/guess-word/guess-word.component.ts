@@ -39,8 +39,11 @@ export class GuessWordComponent {
 
   constructor(private actividadService: ActividadService) {}
 
-  ngOnInit() {
+  ngAfterViewInit(){
     this.startProductTour();
+  }
+
+  ngOnInit() {
     this.loadRandomImage(this.currentWord);
 
   }
