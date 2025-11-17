@@ -11,7 +11,6 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "baseHref": "/guss/",
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/spellvare",
@@ -85,7 +84,8 @@
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/_redirects"
             ],
             "styles": [
               "src/styles.css"
