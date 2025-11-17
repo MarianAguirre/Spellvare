@@ -33,19 +33,18 @@ export class GuessWordComponent {
   public tagsImage: string[] = [];
   public translation: string = '';
   public brailleTranslationText: string = '';
-  public timeLeft: number = 45;
+  public timeLeft: number = 0;
   public score: number = 0;
   private timer: any = null;
 
   constructor(private actividadService: ActividadService) {}
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.startProductTour();
   }
 
   ngOnInit() {
     this.loadRandomImage(this.currentWord);
-
   }
   startProductTour(): void {
     this.pauseTimer();
@@ -56,7 +55,8 @@ export class GuessWordComponent {
           element: '.root',
           popover: {
             title: 'Bienvenido al Tutorial!',
-            description: 'Estas son algunas instrucciones y explicaciones del funcionamiento del juego, puedes elejir saltarlo cerrando este dialogo',
+            description:
+              'Estas son algunas instrucciones y explicaciones del funcionamiento del juego, puedes elejir saltarlo cerrando este dialogo',
           },
         },
 
@@ -64,80 +64,91 @@ export class GuessWordComponent {
           element: '#guess-container',
           popover: {
             title: 'El juego',
-            description: 'Este juego consiste en adivinar la palabra  que describe la imagen y escribirla con el teclado en braille pero cuiado, no todo es lo que parece...',
+            description:
+              'Este juego consiste en adivinar la palabra  que describe la imagen y escribirla con el teclado en braille pero cuiado, no todo es lo que parece...',
           },
         },
         {
           element: '#game-info',
           popover: {
             title: 'Tiempo y puntos',
-            description: 'Aqui puedes observar el tiempo restante que posees para adivinar la palabra, si es correcta se te sumaran puntos de progreso',
+            description:
+              'Aqui puedes observar el tiempo restante que posees para adivinar la palabra, si es correcta se te sumaran puntos de progreso',
           },
         },
         {
           element: '#Pistas',
           popover: {
             title: 'Palabras',
-            description: 'Estas palabras sirven como pista y a su vez entre las palabras se encuentra la respuesta correcta, puedes intentar adivinar con todas pero si no tienes el conocimiento en braille necesario el tiempo te alcanzara',
+            description:
+              'Estas palabras sirven como pista y a su vez entre las palabras se encuentra la respuesta correcta, puedes intentar adivinar con todas pero si no tienes el conocimiento en braille necesario el tiempo te alcanzara',
           },
         },
         {
           element: '#group',
           popover: {
             title: 'Zona de respuesta',
-            description: 'Aqui podras ver lo que estas escribiendo tanto en braille como en español, cuando tengas tu respuesta puedes confirmar si es correcta con el el boton, de caso contrario con el boton de borrar puedes eliminar lo escrito completamente.',
+            description:
+              'Aqui podras ver lo que estas escribiendo tanto en braille como en español, cuando tengas tu respuesta puedes confirmar si es correcta con el el boton, de caso contrario con el boton de borrar puedes eliminar lo escrito completamente.',
           },
         },
         {
           element: '.root',
           popover: {
             title: 'Fin del tutorial',
-            description: 'Consideramos que ya te hemos explicado lo necesario para entender el juego, diviertete practicando de esta forma braille!',
+            description:
+              'Consideramos que ya te hemos explicado lo necesario para entender el juego, diviertete practicando de esta forma braille!',
           },
         },
       ],
       onDestroyStarted: () => {
-      console.log('Tutorial cerrado, iniciando temporizador...');
-      this.startTimer();
-      driverObj.destroy();
-    },
-    }
-  );
+        console.log('Tutorial cerrado, iniciando temporizador...');
+        this.startTimer();
+        driverObj.destroy();
+      },
+    });
 
     driverObj.drive();
   }
 
   startTimer() {
     clearInterval(this.timer);
-    this.timeLeft = 45;
+    this.timeLeft = this.braille.length > 12 ? 90 : 60;
+
     this.timer = setInterval(() => {
       this.timeLeft--;
+
       if (this.timeLeft <= 0) {
-        clearInterval(this.timer);
-        // alert('Tiempo agotado');
+        this.stopTimer();
         this.nextWord();
-        this.resetTimer();
+        this.startTimer(); // reinicia
       }
     }, 1000);
   }
 
-  resetTimer() {
+  stopTimer() {
     clearInterval(this.timer);
+  }
+
+  resetTimer() {
+    this.stopTimer();
     this.startTimer();
   }
 
   pauseTimer() {
-    clearInterval(this.timer);
+    this.stopTimer();
   }
 
   resumeTimer() {
-    clearInterval(this.timer);
+    this.stopTimer();
+
     this.timer = setInterval(() => {
       this.timeLeft--;
+
       if (this.timeLeft <= 0) {
-        clearInterval(this.timer);
+        this.stopTimer();
         this.nextWord();
-        this.resetTimer();
+        this.startTimer();
       }
     }, 1000);
   }
@@ -154,6 +165,8 @@ export class GuessWordComponent {
           console.log('Descripción:', description);
           this.tagsImage = description.split(',');
           this.braille = this.brailleService.convertText(this.getRandomText());
+          console.log(this.braille)
+
         } else {
           console.warn('No se encontraron imágenes para:', word);
           this.imageUrl = null;
@@ -175,8 +188,10 @@ export class GuessWordComponent {
       'gato',
       'taza',
       'raton',
+      'laptop',
+      'hamburguesa',
+      'comida',
     ];
-    // const words = ['pikachu'];
     this.currentWord = words[Math.floor(Math.random() * words.length)];
     this.loadRandomImage(this.currentWord);
   }

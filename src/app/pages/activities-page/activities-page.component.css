@@ -146,12 +146,12 @@ button:active {
 }
 
 @media (height < 750px) {
-  .body{
+  /* .body{
     height: 100vh;
-  }
+  } */
   .container{
-            height: 40%;
-        width: 50%;
+            height: 100%;
+        width: 25%;
   }
   button{
     width: 29%;
