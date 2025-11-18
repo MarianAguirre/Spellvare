@@ -4,6 +4,22 @@
   <div class="game-info" *ngIf="imageUrl" id="game-info">
     <p>⏱️ Tiempo: <span>{{ timeLeft }}</span></p>
     <p>🏆 Puntos: <span>{{ score }}</span></p>
+    <button class="btn primary" style="padding: 0;" (click)="endGame()">Finalizar</button>
+    <div class="mensaje" *ngIf="visible">
+      <p>
+        Felicidades has adivinado correctamente {{score}} de {{words}} palabras, sigue asi.
+      </p>
+      <div style="display: flex; flex-direction: row; gap: 1rem; justify-content: center;">
+        <button class="btn close" ><a href="/" style="text-decoration: none; color:white">🏠Menu</a></button>
+        <button class="btn success" (click)="continue()">Seguir jugando</button>
+      </div>
+
+    </div>
+    <div class="contenedor-fondo" *ngIf="visible">
+      <div class="fondo">
+
+      </div>
+    </div>
   </div>
 
   <div class="card" id="card">

@@ -35,6 +35,8 @@ export class GuessWordComponent {
   public brailleTranslationText: string = '';
   public timeLeft: number = 0;
   public score: number = 0;
+  public words: number = 0;
+  public visible: boolean = false;
   private timer: any = null;
 
   constructor(private actividadService: ActividadService) {}
@@ -113,7 +115,7 @@ export class GuessWordComponent {
 
   startTimer() {
     clearInterval(this.timer);
-    this.timeLeft = this.braille.length > 12 ? 90 : 60;
+    this.timeLeft = this.braille.length > 12 ? 100 : 60;
 
     this.timer = setInterval(() => {
       this.timeLeft--;
@@ -166,6 +168,7 @@ export class GuessWordComponent {
           this.tagsImage = description.split(',');
           this.braille = this.brailleService.convertText(this.getRandomText());
           console.log(this.braille)
+          this.words++
 
         } else {
           console.warn('No se encontraron imágenes para:', word);
@@ -212,6 +215,16 @@ export class GuessWordComponent {
   clear(): void {
     this.translation = '';
     this.brailleTranslationText = '';
+  }
+
+  endGame(){
+    this.stopTimer();
+    this.visible = !this.visible
+  }
+
+  continue(){
+    this.resumeTimer();
+    this.visible = !this.visible
   }
 
   confirm(): void {

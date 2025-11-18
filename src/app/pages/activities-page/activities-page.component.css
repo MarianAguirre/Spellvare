@@ -121,7 +121,7 @@ button:active {
   }
 }
 
-@media (width <= 500px) {
+@media (width < 500px) {
   h1{
     font-size: 20px;
   }
@@ -151,7 +151,7 @@ button:active {
   } */
   .container{
             height: 100%;
-        width: 25%;
+        /* width: 25%; */
   }
   button{
     width: 29%;
